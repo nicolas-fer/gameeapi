@@ -1,0 +1,9 @@
+USE maindb;
+
+CREATE TABLE IF NOT EXISTS Team(
+	TeamId int NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(80) NOT NULL,
+	PrimaryColor VARCHAR(7) NOT NULL,
+	SecondaryColor VARCHAR(7) NOT NULL,
+	PRIMARY KEY (TeamId)
+);
