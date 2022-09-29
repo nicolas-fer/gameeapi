@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
     });
 
     options.AddPolicy(prdCorsPolicy, builder => {
-        builder.WithOrigins("https://nice-sand-0bfaa9c10.2.azurestaticapps.net/")
+        builder.WithOrigins("https://nice-sand-0bfaa9c10.2.azurestaticapps.net")
                .AllowAnyHeader()
                .AllowAnyMethod();
     });
