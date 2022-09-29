@@ -18,10 +18,19 @@ builder.Services.AddCommonServices(builder.Configuration);
 builder.Services.AddMvc();
 
 var devCorsPolicy = "devCorsPolicy";
+var prdCorsPolicy = "prdCorsPolicy";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(devCorsPolicy, builder => {
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+
+    options.AddPolicy(prdCorsPolicy, builder => {
+        builder.WithOrigins("https://nice-sand-0bfaa9c10.2.azurestaticapps.net/")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
     });
 });
 
@@ -33,6 +42,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseCors(devCorsPolicy);
 }
+else
+{
+    app.UseCors(prdCorsPolicy);
+}
+
 
 app.UseHttpsRedirection();
 
