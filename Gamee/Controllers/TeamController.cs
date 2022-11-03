@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {    
-    public class TeamController : GameeController
+    public class TeamController : ApiController
     {
         private readonly ITeamService _teamService;
 
         public TeamController(ITeamService teamService)
         {
-            _teamService = teamService ?? throw new ArgumentNullException(nameof(teamService));
+            _teamService = teamService;
         }
 
         [HttpGet]
@@ -19,7 +19,7 @@ namespace Api.Controllers
         {
             var result = await _teamService.GetAllAsync();
 
-            return GameeResponse(result);
+            return ApiResponse(result);
         }
 
         [HttpGet]
@@ -28,23 +28,23 @@ namespace Api.Controllers
         {
             var result = await _teamService.GetByIdAsync(id);
 
-            return GameeResponse(result);
+            return ApiResponse(result);
         }      
 
         [HttpPost]
-        public async Task<ActionResult> PostAsync([FromBody] TeamDto teamDto)
+        public async Task<ActionResult> PostAsync([FromBody] TeamDto? teamDto)
         {
             var result = await _teamService.InsertAsync(teamDto);
 
-            return GameeResponse(result);
+            return ApiResponse(result);
         }
         
         [HttpPut]
-        public async Task<ActionResult> PutAsync([FromBody] TeamDto teamDto)
+        public async Task<ActionResult> PutAsync([FromBody] TeamDto? teamDto)
         {
             var result = await _teamService.UpdateAsync(teamDto);
 
-            return GameeResponse(result);
+            return ApiResponse(result);
         }
         
         [HttpDelete]
@@ -53,7 +53,7 @@ namespace Api.Controllers
         {
             var result = await _teamService.DeleteAsync(id);
 
-            return GameeResponse(result);
+            return ApiResponse(result);
         }
     }
 }

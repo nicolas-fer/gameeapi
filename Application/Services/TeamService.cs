@@ -1,5 +1,6 @@
 ﻿using Application.Dtos;
 using Application.Dtos.Validations;
+using Application.Services.Base;
 using Application.Services.Interfaces;
 using AutoMapper;
 using Domain.Interfaces.Repositories;
@@ -13,7 +14,7 @@ namespace Application.Services
 
         public TeamService(IUnitOfWork unitOfWork, IMapper mapper, ITeamRepository teamRepository) : base(unitOfWork, mapper)
         {
-            _teamRepository = teamRepository ?? throw new ArgumentNullException(nameof(teamRepository));
+            _teamRepository = teamRepository;
         }
 
         public async Task<Result<TeamDto>> GetByIdAsync(int id)
@@ -23,21 +24,21 @@ namespace Application.Services
             if (team == null)
                 return NotFound<TeamDto>("Team not found!");
 
-            return Ok(_mapper.Map<TeamDto>(team));
+            return Ok(Mapper.Map<TeamDto>(team));
         }
 
         public async Task<Result<IEnumerable<TeamDto>>> GetAllAsync()
         {
             var teams = await _teamRepository.GetAllAsync();
-            return Ok(_mapper.Map<IEnumerable<TeamDto>>(teams));
+            return Ok(Mapper.Map<IEnumerable<TeamDto>>(teams));
         }
 
-        public async Task<Result<TeamDto>> InsertAsync(TeamDto teamDto)
+        public async Task<Result<TeamDto>> InsertAsync(TeamDto? teamDto)
         {
             if (teamDto == null)
-                return Fail<TeamDto>("The object cannot be null");
+                return Fail<TeamDto>("The body cannot be null");
 
-            var dtoValidationResult = new TeamDtoValidator().Validate(teamDto);
+            var dtoValidationResult = await new TeamDtoValidator().ValidateAsync(teamDto);
 
             if (!dtoValidationResult.IsValid)
                 return RequestError<TeamDto>("Validation errors occurred!", dtoValidationResult);
@@ -45,26 +46,26 @@ namespace Application.Services
             teamDto.PrimaryColor = teamDto.PrimaryColor.ToUpper();
             teamDto.SecondaryColor = teamDto.SecondaryColor.ToUpper();
 
-            var team = _mapper.Map<Team>(teamDto);
+            var team = Mapper.Map<Team>(teamDto);
 
             try
             {
-                await _unitOfWork.BeginTransaction();
+                await UnitOfWork.BeginTransaction();
 
                 var repositoryReturn = await _teamRepository.InsertAsync(team);
 
-                await _unitOfWork.Commit();
+                await UnitOfWork.Commit();
 
-                return Ok(_mapper.Map<TeamDto>(repositoryReturn));
+                return Ok(Mapper.Map<TeamDto>(repositoryReturn));
             }
             catch (Exception)
             {
-                await _unitOfWork.Rollback();
+                await UnitOfWork.Rollback();
                 throw;
             }
         }
 
-        public async Task<Result<TeamDto>> UpdateAsync(TeamDto teamDto)
+        public async Task<Result<TeamDto>> UpdateAsync(TeamDto? teamDto)
         {
             if (teamDto == null)
                 return Fail<TeamDto>("The object cannot be null");
@@ -74,7 +75,7 @@ namespace Application.Services
             if (team == null)
                 return NotFound<TeamDto>("Team not found!");
 
-            var dtoValidationResult = new TeamDtoValidator().Validate(teamDto);
+            var dtoValidationResult = await new TeamDtoValidator().ValidateAsync(teamDto);
 
             if (!dtoValidationResult.IsValid)
                 return RequestError<TeamDto>("Validation errors occurred!", dtoValidationResult);
@@ -82,21 +83,21 @@ namespace Application.Services
             teamDto.PrimaryColor = teamDto.PrimaryColor.ToUpper();
             teamDto.SecondaryColor = teamDto.SecondaryColor.ToUpper();
 
-            team = _mapper.Map(teamDto, team);
+            team = Mapper.Map(teamDto, team);
 
             try
             {
-                await _unitOfWork.BeginTransaction();
+                await UnitOfWork.BeginTransaction();
 
                 var repositoryReturn = _teamRepository.Update(team);
 
-                await _unitOfWork.Commit();
+                await UnitOfWork.Commit();
 
-                return Ok(_mapper.Map<TeamDto>(repositoryReturn));
+                return Ok(Mapper.Map<TeamDto>(repositoryReturn));
             }
             catch (Exception)
             {
-                await _unitOfWork.Rollback();
+                await UnitOfWork.Rollback();
                 throw;
             }
         }
@@ -110,17 +111,17 @@ namespace Application.Services
 
             try
             {
-                await _unitOfWork.BeginTransaction();
+                await UnitOfWork.BeginTransaction();
 
                 var repositoryReturn = _teamRepository.Delete(team);
 
-                await _unitOfWork.Commit();
+                await UnitOfWork.Commit();
 
-                return Ok(_mapper.Map<TeamDto>(repositoryReturn));
+                return Ok(Mapper.Map<TeamDto>(repositoryReturn));
             }
             catch (Exception)
             {
-                await _unitOfWork.Rollback();
+                await UnitOfWork.Rollback();
                 throw;
             }
         }

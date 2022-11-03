@@ -9,6 +9,7 @@ namespace Application.Mappings
         public DtoToDomainMapper()
         {
             CreateMap<TeamDto, Team>();
+            CreateMap<UserDto, User>();
         }
     }
 }

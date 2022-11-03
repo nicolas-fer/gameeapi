@@ -9,6 +9,7 @@ namespace Infra.Data.Context
         {}
 
         public DbSet<Team> Teams { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

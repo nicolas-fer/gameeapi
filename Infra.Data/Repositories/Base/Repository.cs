@@ -9,14 +9,14 @@ namespace Infra.Data.Repositories.Base
     {
         private readonly GameeDbContext _db;
 
-        public Repository(GameeDbContext db)
+        protected Repository(GameeDbContext db)
         {
-            _db = db ?? throw new ArgumentNullException(nameof(GameeDbContext));
+            _db = db;
         }
 
         public async Task<TModel?> GetAsync(Expression<Func<TModel, bool>> predicate)
         {
-            return await _db.Set<TModel>().FindAsync(predicate).ConfigureAwait(true);
+            return await _db.Set<TModel>().FirstOrDefaultAsync(predicate).ConfigureAwait(true);
         }
 
         public async Task<TModel?> GetByIdAsync(int? id)

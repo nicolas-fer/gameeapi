@@ -5,41 +5,37 @@ namespace Domain.Models
 {
     public sealed class Team
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public string PrimaryColor { get; private set; }
-        public string SecondaryColor { get; private set; }
+        public int Id { get; }
+        public string Name { get; }
+        public string PrimaryColor { get; }
+        public string SecondaryColor { get; }
 
         public Team(string name, string primaryColor, string secondaryColor)
         {
-            this.Name = name;
-            this.PrimaryColor = primaryColor;   
-            this.SecondaryColor = secondaryColor;
+            Name = name;
+            PrimaryColor = primaryColor;   
+            SecondaryColor = secondaryColor;
 
             Validate();
         }
         
         public Team(int id, string name, string primaryColor, string secondaryColor)
         {
-            this.Id = id;
+            Id = id;
 
-            DomainValidationException.When(id < 0, "Invalid id");
+            DomainValidationException.ThrowWhen(id < 0, "Invalid id");
 
-            this.Name = name;
-            this.PrimaryColor = primaryColor;   
-            this.SecondaryColor = secondaryColor;
+            Name = name;
+            PrimaryColor = primaryColor;   
+            SecondaryColor = secondaryColor;
 
             Validate();
         }
 
         private void Validate()
         {
-            DomainValidationException.When(this.Name == null, "Name field cannot be empty");
-            DomainValidationException.When(this.PrimaryColor == null, "PrimaryColor field cannot be empty");
-            DomainValidationException.When(this.SecondaryColor == null, "SecondaryColor field cannot be empty");
-
-            DomainValidationException.When(!Regex.IsMatch(this.PrimaryColor, "^#(?:[0-9a-fA-F]{3}){1,2}$"), "PrimaryColor is not a valid hex color");
-            DomainValidationException.When(!Regex.IsMatch(this.SecondaryColor, "^#(?:[0-9a-fA-F]{3}){1,2}$"), "SecondaryColor is not a valid hex color");
+            DomainValidationException.ThrowWhen(!Regex.IsMatch(PrimaryColor, "^#(?:[0-9a-fA-F]{3}){1,2}$"), "PrimaryColor is not a valid hex color");
+            DomainValidationException.ThrowWhen(!Regex.IsMatch(SecondaryColor, "^#(?:[0-9a-fA-F]{3}){1,2}$"), "SecondaryColor is not a valid hex color");
         }
     }
 }

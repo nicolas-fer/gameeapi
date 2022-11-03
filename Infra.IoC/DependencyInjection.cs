@@ -18,20 +18,24 @@ namespace Infra.IoC
             services.AddDbContext<GameeDbContext>(opt => opt.UseMySql(configuration.GetConnectionString("DefaultConnection"), mySqlVersion));
 
             services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }
 
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAutoMapper(typeof(DomainToDtoMapper));
+
             services.AddScoped<ITeamService, TeamService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             return services;
         }
 
         public static IServiceCollection AddCommonServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddAutoMapper(typeof(DomainToDtoMapper));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;

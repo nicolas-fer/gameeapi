@@ -6,9 +6,9 @@ namespace Api.Controllers.Base
 {
     [Route("api/[controller]")]
     [ApiController]
-    public abstract class GameeController : ControllerBase
+    public abstract class ApiController : ControllerBase
     {
-        public ActionResult GameeResponse<TObject>(Result<TObject> result)
+        public ActionResult ApiResponse<TObject>(Result<TObject> result)
         {
             if (result == null)
                 throw new ArgumentNullException(nameof(result));
@@ -21,13 +21,11 @@ namespace Api.Controllers.Base
                 return BadRequest(result);
             }
 
-            if (result.Data == null)
-            {
-                result.Success = false;
-                return NotFound(result);
-            }
-
-            return Ok(result);
+            if (result.Data != null)
+                return Ok(result);
+            
+            result.Success = false;
+            return NotFound(result);
         }
     }
 }
