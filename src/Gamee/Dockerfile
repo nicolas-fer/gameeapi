@@ -7,14 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Gamee/Api.csproj", "Gamee/"]
-COPY ["Infra.IoC/Infra.IoC.csproj", "Infra.IoC/"]
-COPY ["Application/Application.csproj", "Application/"]
-COPY ["Domain/Domain.csproj", "Domain/"]
-COPY ["Infra.Data/Infra.Data.csproj", "Infra.Data/"]
-RUN dotnet restore "Gamee/Api.csproj"
+COPY ["src/Gamee/Api.csproj", "src/Gamee/"]
+COPY ["src/Infra.IoC/Infra.IoC.csproj", "src/Infra.IoC/"]
+COPY ["src/Application/Application.csproj", "src/Application/"]
+COPY ["src/Domain/Domain.csproj", "src/Domain/"]
+COPY ["src/Infra.Data/Infra.Data.csproj", "src/Infra.Data/"]
+RUN dotnet restore "src/Gamee/Api.csproj"
 COPY . .
-WORKDIR "/src/Gamee"
+WORKDIR "/src/src/Gamee"
 RUN dotnet build "Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
