@@ -101,17 +101,10 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseCors(devCorsPolicy);
-}
-else
-{
-    app.UseCors(prdCorsPolicy);
-}
+app.UseCors(app.Environment.IsDevelopment() ? devCorsPolicy : prdCorsPolicy);
 
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

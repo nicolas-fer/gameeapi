@@ -4,7 +4,7 @@ using Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
-{    
+{
     public class TeamController : ApiController
     {
         private readonly ITeamService _teamService;

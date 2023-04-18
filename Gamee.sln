@@ -18,6 +18,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{255A54F4-1979-4F9D-A457-DACE02129E7D}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		Gamee\Dockerfile = Gamee\Dockerfile
+	EndProjectSection
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{17F70855-203D-4E00-811A-3AF4108DAEA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,9 +52,20 @@ Global
 		{641DF295-EC4C-41AE-8795-74792848F914}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{641DF295-EC4C-41AE-8795-74792848F914}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{641DF295-EC4C-41AE-8795-74792848F914}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17F70855-203D-4E00-811A-3AF4108DAEA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17F70855-203D-4E00-811A-3AF4108DAEA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17F70855-203D-4E00-811A-3AF4108DAEA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17F70855-203D-4E00-811A-3AF4108DAEA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1A3161AD-CC05-4E0F-B748-54260B99222B} = {255A54F4-1979-4F9D-A457-DACE02129E7D}
+		{64B14DB9-8064-4833-9264-9762325CF41D} = {255A54F4-1979-4F9D-A457-DACE02129E7D}
+		{EDB8D9C3-0435-4B36-9674-4D2D3899BF55} = {255A54F4-1979-4F9D-A457-DACE02129E7D}
+		{57DA47E3-2C46-4B0F-996E-E737B920BC37} = {255A54F4-1979-4F9D-A457-DACE02129E7D}
+		{641DF295-EC4C-41AE-8795-74792848F914} = {255A54F4-1979-4F9D-A457-DACE02129E7D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D548CA7-116F-4385-B59A-D06E7E973D0A}
