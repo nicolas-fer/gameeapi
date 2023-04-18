@@ -29,4 +29,4 @@ jobs:
           context: .
           push: true
           tags: nicolasferdev/gameeapi:latest
-          file: /src/Gamee/Dockerfile
+          file: src/Gamee/Dockerfile
