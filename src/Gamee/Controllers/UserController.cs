@@ -25,5 +25,15 @@ namespace Api.Controllers
 
             return ApiResponse(result);
         }
+
+        [HttpPost]
+        [Route("Logout")]
+        [AllowAnonymous]
+        public async Task<ActionResult> LogoutAsync([FromBody] LoginDto? teamDto)
+        {
+            var result = await _userService.LoginAsync(teamDto);
+
+            return ApiResponse(result);
+        }
     }
 }
