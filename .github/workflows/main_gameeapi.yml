@@ -26,5 +26,5 @@ jobs:
             
           - name: 'Build Inventory Image'
             run: |
-              docker build . --tag ghcr.io/nfsadevelop/store:${{ steps.vars.outputs.sha_short }}
+              docker build . --tag ghcr.io/nfsadevelop/store:${{ steps.vars.outputs.sha_short }} -f ./Dockerfile
               docker push ghcr.io/nfsadevelop/store:${{ steps.vars.outputs.sha_short }}
