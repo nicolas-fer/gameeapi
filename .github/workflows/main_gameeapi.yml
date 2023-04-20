@@ -31,4 +31,4 @@ jobs:
           - name: 'Build Inventory Image'
             run: |
               docker build . --tag ghcr.io/nfsadevelop/${{ github.event.repository.name }}:${{ steps.branch_name.outputs.branch }}-${{ steps.tag_name.outputs.sha_short }} -f ./src/Gamee/Dockerfile
-              docker push ghcr.io/nfsadevelop/${{ github.event.repository.name }}:${{ steps.branch_name.outputs.branch }}-${{ steps.vars.outputs.sha_short }}
+              docker push ghcr.io/nfsadevelop/${{ github.event.repository.name }}:${{ steps.branch_name.outputs.branch }}-${{ steps.tag_name.outputs.sha_short }}
