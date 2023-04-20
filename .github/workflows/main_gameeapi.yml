@@ -19,7 +19,11 @@ jobs:
               registry: ghcr.io
               username: ${{github.actor}}
               password: ${{secrets.GITHUB_TOKEN}}
-
+              
+          - name: Set tag name
+            id: vars
+            run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT  
+            
           - name: 'Build Inventory Image'
             run: |
               docker build . --tag ghcr.io/nfsadevelop/store:${{ steps.vars.outputs.sha_short }}
