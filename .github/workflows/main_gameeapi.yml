@@ -21,10 +21,14 @@ jobs:
               password: ${{secrets.GITHUB_TOKEN}}
               
           - name: Set tag name
-            id: vars
+            id: tag_name
             run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT  
+            
+          - name: Extract branch name
+            id: branch_name
+            run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
             
           - name: 'Build Inventory Image'
             run: |
-              docker build . --tag ghcr.io/nfsadevelop/store:${{ steps.vars.outputs.sha_short }} -f ./src/Gamee/Dockerfile
-              docker push ghcr.io/nfsadevelop/store:${{ steps.vars.outputs.sha_short }}
+              docker build . --tag ghcr.io/nfsadevelop/${{ github.event.repository.name }}/${{ steps.branch_name.outputs.branch }}:${{ steps.tag_name.outputs.sha_short }} -f ./src/Gamee/Dockerfile
+              docker push ghcr.io/nfsadevelop/${{ github.event.repository.name }}/${{ steps.branch_name.outputs.branch }}:${{ steps.vars.outputs.sha_short }}
