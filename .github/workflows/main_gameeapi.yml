@@ -20,6 +20,17 @@ jobs:
               username: ${{github.actor}}
               password: ${{secrets.GITHUB_TOKEN}}
               
+          - name: Prune
+            uses: vlaurin/action-ghcr-prune@v0.5.0
+            with:
+              token: ${{ secrets.GITHUB_TOKEN }}
+              organization: nfsadevelop
+              container: ${{ github.event.repository.name }}
+              dry-run: true # Dry-run first, then change to `false`
+              keep-younger-than: 7
+              keep-last: 2
+              prune-untagged: true
+      
           - name: Set tag name
             id: tag_name
             run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT  
