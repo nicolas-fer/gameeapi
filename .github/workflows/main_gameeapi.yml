@@ -41,3 +41,5 @@ jobs:
               dry-run: true # Dry-run first, then change to `false`
               keep-last: 2
               prune-untagged: false
+              tag-regex: |
+                [0-9a-zA-Z]{6,}
