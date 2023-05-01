@@ -41,4 +41,4 @@ jobs:
               dry-run: true # Dry-run first, then change to `false`
               keep-last: 2
               prune-tags-regexes: |
-                [0-9a-zA-Z]{6,}
+                ^.{7,}$
