@@ -36,7 +36,7 @@ jobs:
           - name: Prune
             uses: vlaurin/action-ghcr-prune@v0.5.0
             with:
-              token: ${{ secrets.GITHUB_TOKEN }}
+              token: ${{ secrets.PRUNE_KEY }}
               organization: nicolas-fer
               container: ${{ github.event.repository.name }}
               dry-run: true # Dry-run first, then change to `false`
